@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from pandas import DataFrame
 import math
 
@@ -114,7 +115,7 @@ class AdjustedScaler():
         for i in range(1, intervals_count):
             interval_border_left, interval_border_right = self._get_interval_borders(items_count, intervals_count, i)
             new_data_sample = sorted_values.iloc[interval_border_left:interval_border_right].sample(samples_per_interval)[[column_name]]
-            data_sample = data_sample.append(new_data_sample, ignore_index=True)[[column_name]]
+            data_sample = pd.concat([data_sample, new_data_sample], ignore_index=True)[[column_name]]
 
         return data_sample[column_name]
 
